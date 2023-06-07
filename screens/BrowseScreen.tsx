@@ -11,14 +11,18 @@ function capitalize(str: string) {
 function appendColumns(activity: Activity) {
     const start = new Date(activity.timeRange.getStartTime());
     const end = new Date(activity.timeRange.getEndTime());
-    const span = activity.timeRange.timespan;
+    const totalSeconds = activity.timeRange.timespan;
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const readableSpan = `${hours}h ${minutes}m ${seconds}s`;
 
     const typeTitle = `${capitalize(activity.type)} - ${activity.title}`;
     const timeRangeInfo =  activity.timeRange.isDateOnly ? (
         `${activity.timeRange.timestamp.toLocaleDateString()}`
     ) : (
         `${start.toLocaleString()} - ${end.toLocaleString()}`
-    ) + ` (${span})`;
+    ) + ` (${readableSpan})`;
     
     return {
         _id: activity._id,
