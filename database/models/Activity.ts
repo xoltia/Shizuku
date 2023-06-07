@@ -43,7 +43,7 @@ export class TimeRange
      * The value returned is not meaningful if `isDateOnly` is true.
      */
     getStartTime(): number {
-        return  this.timestamp.getTime() - this.timespan;
+        return  this.timestamp.getTime() - this.timespan * 1000;
     }
 
     /**
