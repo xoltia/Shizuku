@@ -1,4 +1,4 @@
-import { HStack, VStack, useTheme, Divider, Box, Text, Center, Icon, Select } from "native-base";
+import { HStack, VStack, useTheme, Divider, Box, Text, Center, Icon, Select, ScrollView } from "native-base";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from "react";
 
@@ -63,22 +63,23 @@ export default function Table<T>(props: ITableProps<T>) {
                 )))}
             </HStack>
             <Divider />
-            {data.map((item, i) => (
-                <HStack key={i} divider={<Divider />}>
-                    {/* {selectedColumns.map((column, j) => (
-                        <Box key={j} width={`${cellWidth}%`} p={2}>
-                            {renderCellFn(item, column, renderCellDefault)}
-                        </Box>
-                    ))} */}
+            <ScrollView contentContainerStyle={{ paddingBottom: 450 }}>
+                {data.map((item, i) => (
+                    <HStack key={i} divider={<Divider />}>
+                        {/* {selectedColumns.map((column, j) => (
+                            <Box key={j} width={`${cellWidth}%`} p={2}>
+                                {renderCellFn(item, column, renderCellDefault)}
+                            </Box>
+                        ))} */}
 
-                    {Array.from(selectedColumns.values(), ((column, j) => (
-                        <Box key={j} width={`${cellWidth}%`} p={1}>
-                            {renderCellFn(item, column, renderCellDefault)}
-                        </Box>
-                    )))}
-                </HStack>
-            ))}
-
+                        {Array.from(selectedColumns.values(), ((column, j) => (
+                            <Box key={j} width={`${cellWidth}%`} p={1}>
+                                {renderCellFn(item, column, renderCellDefault)}
+                            </Box>
+                        )))}
+                    </HStack>
+                ))}
+            </ScrollView>
             {data.length === 0 && (
                 <Center p={6}>
                     <Icon as={Ionicons}

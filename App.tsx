@@ -1,6 +1,7 @@
 import 'expo-dev-client';
 import 'react-native-gesture-handler';
 import 'react-native-get-random-values';
+import './dev-settings';
 import React from "react";
 import {
   NativeBaseProvider,

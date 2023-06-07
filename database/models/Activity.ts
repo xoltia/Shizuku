@@ -1,8 +1,28 @@
 import Realm from "realm";
 
-export class TimeRange extends Realm.Object<TimeRange, 'timespan' | 'timestamp'> {
+export interface ITimeRange {
+    timespan: number;
+    timestamp: Date;
+    isDateOnly: boolean;
+}
+
+export interface IActivity {
+    _id?: Realm.BSON.ObjectId;
+    type: string;
+    title: string;
+    timeRange: ITimeRange;
+    tags: string[];
+}
+
+export class TimeRange
+    extends Realm.Object<TimeRange, 'timespan' | 'timestamp'>
+    implements ITimeRange
+{
+    // The number of *seconds* the activity lasted.
     timespan!: number;
+    // The time the activity ended.
     timestamp!: Date;
+    // If true, the activity is a date-only activity.
     isDateOnly: boolean = false;
 
     static schema = {
@@ -35,7 +55,10 @@ export class TimeRange extends Realm.Object<TimeRange, 'timespan' | 'timestamp'>
     }
 }
 
-export default class Activity extends Realm.Object<Activity, '_id' | 'title' | 'type' | 'timeRange'> {
+export default class Activity
+    extends Realm.Object<Activity, '_id' | 'title' | 'type' | 'timeRange'>
+    implements IActivity
+{
     _id!: Realm.BSON.ObjectId;
     type!: string;
     title!: string;
